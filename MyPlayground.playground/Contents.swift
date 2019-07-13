@@ -36,26 +36,21 @@ class DepartureBoard {
     
     func alertPassengers() {
         for departures in departureFlights {
-            let scheduled = "scheduled"
             let cancelled = "cancelled"
-            if  scheduled == departures.status.rawValue {
-                print("our flight to \(currentAirport.destination) is scheduled to depart at \(departures.departureTime) from terminal: \(departures.terminal)")
+            if let departure = departures.departureTime, let terminal = departures.terminal {
+                print("Our flight to \(currentAirport.destination) is scheduled to depart at \(departure) from terminal: \(terminal)")
             } else if let terminal = departures.terminal {
                 print("Your flight is boarding, please head to terminal: \(terminal) immediately. The doors are closing soon.")
             }  else if cancelled == departures.status.rawValue {
                 print("We're sorry your flight to \(currentAirport.destination) was canceled, here is a $500 voucher")
-            } else if let terminal = departures.terminal {
-                print("TBD") {
-                } else if let time = departures.departureTime {
-                    print("TBD")
-                }
+            }
                
             }
         }
     }
     
     
-}
+
 
 let flight252 = Flight(departureTime: nil, terminal: "A25", status: .scheduled)
 let flight108 = Flight(departureTime: Date(), terminal: nil, status: .scheduled)
@@ -90,3 +85,15 @@ func printDepartures2() {
 }
 
 printDepartures2()
+spiritAirlines.alertPassengers()
+
+func calculateAirfare(checkedBags multipledBy: Int, distance inMilesAnd: Int, travelers inParty: Int) -> String {
+    let airFareInDouble = Double(multipledBy * inMilesAnd * inParty)
+    let airFareInUSD = String(format: "$%.02f", airFareInDouble)
+    print("\(airFareInUSD)")
+
+    return airFareInUSD
+    
+}
+
+calculateAirfare(checkedBags: 2, distance: 1259, travelers: 2)
